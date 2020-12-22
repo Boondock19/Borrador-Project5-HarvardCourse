@@ -1,0 +1,24 @@
+{% extends "MedicPlace/layout.html "%}
+{% load static %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row h-100 justify-content-start">
+        <div class="col-sm-3">
+                <h2 class="font-weight-bold" >List of Doctors</h2>
+                <ul>
+                    {% for e in Medics %}
+                        <li><a class="text-capitalize" href="{% url 'Data_Sheet' e.user.id  %}">{{e.First_Name}} {{e.Last_Name}}</a></li>
+                    {% endfor %}
+                </ul>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

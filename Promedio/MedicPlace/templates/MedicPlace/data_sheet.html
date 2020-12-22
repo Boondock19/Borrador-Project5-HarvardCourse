@@ -1,0 +1,79 @@
+{% extends "MedicPlace/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+    {% if message %}
+        <h2>{{message}}</h2>
+    {% endif %}
+
+    {% if Page_type == "Medic" %}
+        <div class="container">
+            <div class="row justify-content-center align-items-start">
+                <div class="col">
+                    <h2 class="text-center font-weight-bold">Data Sheet Of Doctor</h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+               <div class="col-4 text-capitalize justify-content-center">
+                    <p class=" text-center text-capitalize"> <span class="font-weight-bold">First Name: </span> {{data_sheet_user.First_Name}}</p>   
+               </div>
+                <div class="col-4 text-capitalize justify-content-center">
+                        <p class="text-center text-capitalize"> <span class="font-weight-bold">Last Name: </span> {{data_sheet_user.Last_Name}}</p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-4 justify-content-center">
+                   <p class="text-center text-capitalize"> <span class="font-weight-bold">Clinic: </span> {{data_sheet_user.Clinic}}</p> 
+                </div>
+                 <div class="col-4 text-capitalize justify-content-center">
+                    <p class="text-center text-capitalize"> <span class="font-weight-bold">Age: </span> {{data_sheet_user.age}}</p>
+                 </div>
+            </div>
+        </div>
+    {% elif Page_type == "Normal_User" %}
+
+        <div>
+            {{data_sheet_user.First_Name}}
+            <div>
+                {{data_sheet_user.Last_Name}}
+                <div>
+                    Esto es normal user
+                    <div>
+                        {{data_sheet_user.age}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row justify-content-center align-items-start">
+                <div class="col">
+                    <h2 class="text-center font-weight-bold">Data Sheet Of Doctor</h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+               <div class="col-4 text-capitalize justify-content-center">
+                    <p class=" text-center text-capitalize"> <span class="font-weight-bold">First Name: </span> {{data_sheet_user.First_Name}}</p>   
+               </div>
+                <div class="col-4 text-capitalize justify-content-center">
+                        <p class="text-center text-capitalize"> <span class="font-weight-bold">Last Name: </span> {{data_sheet_user.Last_Name}}</p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-4 justify-content-center">
+                   <p class="text-center text-capitalize"> <span class="font-weight-bold">Clinic: </span> {{data_sheet_user.Clinic}}</p> 
+                </div>
+                 <div class="col-4 text-capitalize justify-content-center">
+                    <p class="text-center text-capitalize"> <span class="font-weight-bold">Age: </span> {{data_sheet_user.age}}</p>
+                 </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% endblock %}
+
+
+
+{% block script %}
+
+{% endblock %}
