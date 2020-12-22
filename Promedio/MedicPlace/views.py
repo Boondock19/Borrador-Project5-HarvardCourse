@@ -98,3 +98,15 @@ def data_sheet(request,id):
         Page_type="Normal_User"
     context={"data_sheet_user":data_sheet_user,"message":message,"Page_type":Page_type}
     return render(request,"MedicPlace/data_sheet.html",context)
+
+@csrf_exempt
+def Rate_Dr(request,id):
+    if request.method=="POST":
+        DR=Medic.objects.get(id=id)
+        New_rate=int(request.POST.get("value"))
+        DR.promedio(New_rate)
+        rate=DR.rate
+        num_of_rates=DR.num_of_rates
+        DR.save()
+        return JsonResponse({'status':201,"rate":rate,"num_of_rates":num_of_rates})
+
