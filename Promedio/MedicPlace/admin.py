@@ -5,3 +5,5 @@ from .models import *
 admin.site.register(User)
 admin.site.register(Medic)
 admin.site.register(Normal_User)
+admin.site.register(Medic_Article)
+admin.site.register(Article_comment)

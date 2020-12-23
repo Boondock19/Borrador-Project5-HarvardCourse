@@ -1,0 +1,25 @@
+{% extends 'MedicPlace/layout.html' %}
+{% load static %}
+
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col">
+                <h1 class="text-center text-capitalize font-weight-bold">{{title}}</h1>
+                <div class="col text-center">
+                    <small class="text-capitalize font-weight-bold">From Dr: {{Medic}}</small>
+                </div>  
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col">
+                <p>{{content}}</p>  
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block script %}
+
+{% endblock %}

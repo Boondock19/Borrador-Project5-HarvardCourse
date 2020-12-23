@@ -9,4 +9,6 @@ urlpatterns=[
     path("logout",views.logout_view,name="logout"),
     path("Data_Sheet/<int:id>",views.data_sheet,name="Data_Sheet"),
     path("Data_Sheet/Rate_Dr/<int:id>",views.Rate_Dr,name="Rate_Dr"),
+    path("NewArticle",views.New_Article_view,name="New_Article"),
+    path("Article/<int:id>",views.Article_view,name="Article"),
 ]

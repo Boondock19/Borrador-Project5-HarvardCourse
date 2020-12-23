@@ -32,3 +32,21 @@ class Normal_User(models.Model):
 
     def __str__(self):
         return f"This is User {self.First_Name} {self.Last_Name} "
+
+class Medic_Article(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    medic=models.ForeignKey(Medic,on_delete=models.CASCADE)
+    title=models.CharField(max_length=60)
+    content=models.CharField(max_length=2000)
+
+    def __str__(self):
+        return f"this is Article from {self.medic}"
+
+class Article_comment(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    article=models.ForeignKey(Medic_Article,on_delete=models.CASCADE)
+    comment=models.CharField(max_length=300)
+    Date=models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"This is from {self.user} and article {self.article}"

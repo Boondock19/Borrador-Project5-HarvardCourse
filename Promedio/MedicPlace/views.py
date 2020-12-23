@@ -11,7 +11,13 @@ from django.http import JsonResponse
 # Create your views here.
 def index(request):
     Medics=Medic.objects.all()
-    context={"Medics":Medics}
+    Articles=Medic_Article.objects.all()
+    try:
+        Medic.objects.get(user__id=request.user.id)
+        is_medic=True
+    except:
+        is_medic=False
+    context={"Medics":Medics,"is_medic":is_medic,"Articles":Articles}
     return render(request,"MedicPlace/index.html",context)
 
 def login_view(request):
@@ -110,3 +116,26 @@ def Rate_Dr(request,id):
         DR.save()
         return JsonResponse({'status':201,"rate":rate,"num_of_rates":num_of_rates})
 
+def New_Article_view(request):
+    if request.method=="POST":
+        user_id=request.user.id
+        medic=Medic.objects.get(user__id=user_id)
+        title=request.POST["title"]
+        content=request.POST["content"]
+        Article=Medic_Article()
+        Article.user=request.user
+        Article.medic=medic
+        Article.title=title
+        Article.content=content
+        Article.save()
+        return HttpResponseRedirect(reverse("index"))
+    else:
+        return render(request,"MedicPlace/New_Medic_article.html")
+
+def Article_view(request,id):
+    Get_Article=Medic_Article.objects.get(id=id)
+    title=Get_Article.title
+    content=Get_Article.content
+    Dr_Article=Get_Article.medic.Last_Name
+    context={"title":title,"content":content,"Medic":Dr_Article}
+    return render(request,"MedicPlace/Medic_article.html",context)

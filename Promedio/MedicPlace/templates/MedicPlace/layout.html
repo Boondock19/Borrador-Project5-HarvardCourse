@@ -21,6 +21,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'Data_Sheet' user.id %}">{{user.username}}</a>
                 </li>
+                {% if is_medic is True %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'New_Article' %}">New Article</a>
+                </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">  Logout</a>
                 </li>
@@ -35,7 +40,6 @@
                 </ul>
             </div>
           </nav>
-
         <div class="body">
             {% block body %}
             {% endblock %}
