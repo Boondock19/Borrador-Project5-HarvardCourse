@@ -37,7 +37,7 @@ class Medic_Article(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     medic=models.ForeignKey(Medic,on_delete=models.CASCADE)
     title=models.CharField(max_length=60)
-    content=models.CharField(max_length=2000)
+    content=models.TextField(max_length=2000)
 
     def __str__(self):
         return f"this is Article from {self.medic}"
@@ -45,7 +45,7 @@ class Medic_Article(models.Model):
 class Article_comment(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     article=models.ForeignKey(Medic_Article,on_delete=models.CASCADE)
-    comment=models.CharField(max_length=300)
+    comment=models.TextField(max_length=300)
     Date=models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

@@ -148,3 +148,16 @@ def Article_view(request,id):
         Dr_Article=Get_Article.medic.Last_Name
         context={"title":title,"content":content,"Medic":Dr_Article,"Article_target":Get_Article}
         return render(request,"MedicPlace/Medic_article.html",context)
+
+def Edit_Article_view(request,id):
+    Get_Article=Medic_Article.objects.get(id=id)
+    if request.method=="POST":
+        title=request.POST["title"]
+        content=request.POST["content"]
+        Get_Article.title=title
+        Get_Article.content=content
+        Get_Article.save()
+        return HttpResponseRedirect(reverse("Article",kwargs={'id': id}))
+    else:
+        context={"title":Get_Article.title,"content":Get_Article.content,"id":id}
+        return render(request,"MedicPlace/Edit_Medic_article.html",context)

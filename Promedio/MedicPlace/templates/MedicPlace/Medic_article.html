@@ -6,7 +6,19 @@
         <div class="row justify-content-center">
             <div class="col">
                 <h1 class="text-center text-capitalize font-weight-bold" id="title_article">{{title}}</h1>
-                <textarea id="texarea_title" style="display: none;">{{title}}</textarea>
+                <div class="row justify-content-end">
+                    <div class="col-sm-4 ">
+                        
+                    </div>
+                    <div class="col-sm-4 ">
+                        <textarea id="texarea_title" col="20" rows="1" class="justify-content-center">{{title}}</textarea>
+                    </div>
+                    <div class="col-sm-4 ">
+                        
+                    </div>
+                </div>
+                
+               
                 <div class="col text-center">
                     <small class="text-capitalize font-weight-bold">From Dr: {{Medic}}</small>
                 </div>  
@@ -14,13 +26,24 @@
         </div>
         <div class="row justify-content-center">
             <div class="col">
-                <p id="content_article">{{content}}</p>
-                <textarea id="textarea_content" style="display: none;">{{content}}</textarea>  
+                <p id="content_article">{{content|linebreaks}}</p>
+                <div class="row justify-content-end">
+                    <div class="col-sm-4 ">
+                        
+                    </div>
+                    <div class="col-sm-4 ">
+                        <textarea id="textarea_content"  cols="20" >{{content|linebreaks}}</textarea> 
+                    </div>
+                    <div class="col-sm-4 ">
+                        
+                    </div>
+                </div>
+                 
             </div>
         </div>
         <div class="row justify-content-end">
             <div>
-                <button type="button" id="edit_article" data-article_id="{{Article_target.id}}" >Edit Article</button>  
+                <a href="{% url 'Edit_Article' Article_target.id %}"><button type="button" id="edit_article" data-article_id="{{Article_target.id}}" >Edit Article</button></a>  
             </div>
         </div>
     </div>
@@ -28,5 +51,5 @@
 
 
 {% block script %}
-    <script src="{% static 'MedicPlace/edit_article.js' %}" ></script>
+   
 {% endblock %}

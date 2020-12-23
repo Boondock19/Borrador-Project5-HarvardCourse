@@ -11,4 +11,5 @@ urlpatterns=[
     path("Data_Sheet/Rate_Dr/<int:id>",views.Rate_Dr,name="Rate_Dr"),
     path("NewArticle",views.New_Article_view,name="New_Article"),
     path("Article/<int:id>",views.Article_view,name="Article"),
+    path("Edit_Article/<int:id>",views.Edit_Article_view,name="Edit_Article"),
 ]
