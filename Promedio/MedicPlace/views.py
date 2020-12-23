@@ -132,10 +132,19 @@ def New_Article_view(request):
     else:
         return render(request,"MedicPlace/New_Medic_article.html")
 
+@csrf_exempt
 def Article_view(request,id):
     Get_Article=Medic_Article.objects.get(id=id)
-    title=Get_Article.title
-    content=Get_Article.content
-    Dr_Article=Get_Article.medic.Last_Name
-    context={"title":title,"content":content,"Medic":Dr_Article}
-    return render(request,"MedicPlace/Medic_article.html",context)
+    if request.method=="POST":
+        title=request.POST.get("title")
+        content=request.POST.get("content")
+        Get_Article.title=title
+        Get_Article.content=content
+        Get_Article.save()
+        return JsonResponse({'status':201,"title2":title,"content2":content})
+    else:
+        title=Get_Article.title
+        content=Get_Article.content
+        Dr_Article=Get_Article.medic.Last_Name
+        context={"title":title,"content":content,"Medic":Dr_Article,"Article_target":Get_Article}
+        return render(request,"MedicPlace/Medic_article.html",context)
