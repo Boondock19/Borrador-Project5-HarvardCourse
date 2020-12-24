@@ -59,17 +59,34 @@
         </div>
         <div class="row">
             <div class="col-sm-6">
-                <form >
+                <form method="POST" action="{% url 'Article' Article_target.id %}">
+                    {% csrf_token %}
                     <div class="form-group">
-                      <textarea class="form-control" name="content" id="textarea_comment"  cols="60" rows="3"></textarea>
+                      <textarea class="form-control" name="comment" id="textarea_comment" data-article_id="{{Article_target.id}}" cols="60" rows="3"></textarea>
                     </div>
                     <div >
-                        <button type="submit" class="btn btn-outline-success">Comment</button>
+                        <button type="submit" id="comment-btn" class="btn btn-outline-success">Comment</button>
                     </div>
                   </form>
             </div>
-           
         </div>
+        {% for comment in comments %}
+            <div class="row">
+                <div class="col-sm-5 comment">
+                    <div  id="user-comment" class="">
+                        <p class="font-weight-bold">{{comment.user}}</p>
+                        <hr class="hr-comment">
+                        <div id="comment-content">
+                            <p>{{comment.comment|linebreaks}}</p> 
+                            <hr class="hr-comment">
+                            <div>
+                                <span id="comment-date">{{comment.Date}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
     
 {% endblock %}

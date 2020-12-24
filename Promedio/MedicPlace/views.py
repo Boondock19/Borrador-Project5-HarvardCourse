@@ -138,10 +138,11 @@ def New_Article_view(request):
     else:
         return render(request,"MedicPlace/New_Medic_article.html")
 
-@csrf_exempt
+
 def Article_view(request,id):
     Get_Article=Medic_Article.objects.get(id=id)
     Medics=Medic.objects.all()
+    Comments_article=Article_comment.objects.filter(article__id=id)
     try:
         Medic.objects.get(user__id=request.user.id)
         is_medic=True
@@ -152,17 +153,18 @@ def Article_view(request,id):
     else:
         is_owner=False
     if request.method=="POST":
-        title=request.POST.get("title")
-        content=request.POST.get("content")
-        Get_Article.title=title
-        Get_Article.content=content
-        Get_Article.save()
-        return JsonResponse({'status':201,"title2":title,"content2":content})
+        comment_content=request.POST["comment"]
+        New_comment=Article_comment()
+        New_comment.user=request.user
+        New_comment.article=Get_Article
+        New_comment.comment=comment_content
+        New_comment.save()
+        return HttpResponseRedirect(reverse("Article",kwargs={"id":id}))
     else:
         title=Get_Article.title
         content=Get_Article.content
         Dr_Article=Get_Article.medic.Last_Name
-        context={"title":title,"content":content,"Medic":Dr_Article,"Article_target":Get_Article,"is_medic":is_medic,"is_owner":is_owner}
+        context={"title":title,"content":content,"Medic":Dr_Article,"Article_target":Get_Article,"is_medic":is_medic,"is_owner":is_owner,"comments":Comments_article}
         return render(request,"MedicPlace/Medic_article.html",context)
 
 def Edit_Article_view(request,id):
