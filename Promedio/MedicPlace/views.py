@@ -94,16 +94,22 @@ def logout_view(request):
 def data_sheet(request,id):
     Medics=Medic.objects.filter(user__id=id)
     Normal_Users=Normal_User.objects.filter(user__id=id)
+    try:
+        Medic.objects.get(user__id=request.user.id)
+        is_medic=True
+    except:
+        is_medic=False
     if len(Medics)>0:
       data_sheet_user=Medics[0]
-      message="Entro en la parte de medic"
+      Articles=Medic_Article.objects.filter(medic__id=data_sheet_user.id)
       Page_type="Medic"
+      context={"data_sheet_user":data_sheet_user,"Page_type":Page_type,"is_medic":is_medic,"Articles":Articles}
+      return render(request,"MedicPlace/data_sheet.html",context)
     elif len(Normal_Users)>0:
         data_sheet_user=Normal_Users[0]
-        message="Entro en la parte de Normal User"
         Page_type="Normal_User"
-    context={"data_sheet_user":data_sheet_user,"message":message,"Page_type":Page_type}
-    return render(request,"MedicPlace/data_sheet.html",context)
+        context={"data_sheet_user":data_sheet_user,"Page_type":Page_type,"is_medic":is_medic}
+        return render(request,"MedicPlace/data_sheet.html",context)
 
 @csrf_exempt
 def Rate_Dr(request,id):
@@ -135,6 +141,16 @@ def New_Article_view(request):
 @csrf_exempt
 def Article_view(request,id):
     Get_Article=Medic_Article.objects.get(id=id)
+    Medics=Medic.objects.all()
+    try:
+        Medic.objects.get(user__id=request.user.id)
+        is_medic=True
+    except:
+        is_medic=False
+    if Get_Article.user==request.user:
+        is_owner=True
+    else:
+        is_owner=False
     if request.method=="POST":
         title=request.POST.get("title")
         content=request.POST.get("content")
@@ -146,11 +162,22 @@ def Article_view(request,id):
         title=Get_Article.title
         content=Get_Article.content
         Dr_Article=Get_Article.medic.Last_Name
-        context={"title":title,"content":content,"Medic":Dr_Article,"Article_target":Get_Article}
+        context={"title":title,"content":content,"Medic":Dr_Article,"Article_target":Get_Article,"is_medic":is_medic,"is_owner":is_owner}
         return render(request,"MedicPlace/Medic_article.html",context)
 
 def Edit_Article_view(request,id):
     Get_Article=Medic_Article.objects.get(id=id)
+    Medics=Medic.objects.all()
+    try:
+        Medic.objects.get(user__id=request.user.id)
+        is_medic=True
+    except:
+        is_medic=False
+    if Get_Article.user==request.user:
+        is_owner=True
+    else:
+        is_owner=False
+
     if request.method=="POST":
         title=request.POST["title"]
         content=request.POST["content"]
@@ -159,5 +186,5 @@ def Edit_Article_view(request,id):
         Get_Article.save()
         return HttpResponseRedirect(reverse("Article",kwargs={'id': id}))
     else:
-        context={"title":Get_Article.title,"content":Get_Article.content,"id":id}
+        context={"title":Get_Article.title,"content":Get_Article.content,"id":id,"is_medic":is_medic,"is_owner":is_owner}
         return render(request,"MedicPlace/Edit_Medic_article.html",context)

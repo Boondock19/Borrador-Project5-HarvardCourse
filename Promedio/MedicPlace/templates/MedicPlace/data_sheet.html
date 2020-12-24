@@ -42,6 +42,18 @@
                     <button type="button" class="btn-rate btn btn-outline-secondary" id="btn-5" data-btn_id="{{data_sheet_user.id}}"  data-value="5">5</button>
                 </div>
             </div>
+            <div class="row justify-content-center">
+                <div class="col-4 justify-content-center">
+                    <br>
+                    <h2>Check This Dr Articles!:</h2>
+                    <br>
+                    <ul>
+                        {% for e in Articles %}
+                        <li><a class="text-capitalize" href="{% url 'Article' e.id  %}"><span class="text-capitalize">{{e.title}}</span></a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
         </div>
     {% elif Page_type == "Normal_User" %}
 
