@@ -34,12 +34,14 @@
                 <div class="col-5 text-capitalize justify-content-center">
                     <p class="text-center text-capitalize"> <span class="font-weight-bold">Rate: </span> <span id="Dr_rate">{{data_sheet_user.rate}}</span>
                     <span class="font-weight-bold">Number of Rates:  </span> <span id="Num_of_rates">{{data_sheet_user.num_of_rates}}</span></p>
+                    {% if request.user != data_sheet_user.user  %}
                     <span class="font-weight-bold">Rate the Dr, Please!</span>
                     <button type="button" class="btn-rate btn btn-outline-secondary" id="btn-1" data-btn_id="{{data_sheet_user.id}}" data-value="1">1</button>
                     <button type="button" class="btn-rate btn btn-outline-secondary" id="btn-2" data-btn_id="{{data_sheet_user.id}}"  data-value="2">2</button>
                     <button type="button" class="btn-rate btn btn-outline-secondary" id="btn-3" data-btn_id="{{data_sheet_user.id}}"  data-value="3">3</button>
                     <button type="button" class="btn-rate btn btn-outline-secondary" id="btn-4" data-btn_id="{{data_sheet_user.id}}"  data-value="4">4</button>
                     <button type="button" class="btn-rate btn btn-outline-secondary" id="btn-5" data-btn_id="{{data_sheet_user.id}}"  data-value="5">5</button>
+                    {% endif %}
                 </div>
             </div>
             <div class="row justify-content-center">

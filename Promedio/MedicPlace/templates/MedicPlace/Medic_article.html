@@ -94,7 +94,7 @@
                     <hr class="hr-comment">  
                     <div>
                         <span id="comment-date">{{comment.Date}}</span>
-                        <button id="edit-comment" class="btn btn-outline-dark" data-comment-id="{{comment.id}}">Edit</button>
+                        {% if request.user == comment.user %}<button id="edit-comment" class="btn btn-outline-dark" data-comment-id="{{comment.id}}">Edit</button>{% endif %}
                     </div>
                 </div>
             </div>
