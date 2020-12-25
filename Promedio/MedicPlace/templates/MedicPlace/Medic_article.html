@@ -62,7 +62,7 @@
                 <form method="POST" action="{% url 'Article' Article_target.id %}">
                     {% csrf_token %}
                     <div class="form-group">
-                      <textarea class="form-control" name="comment" id="textarea_comment" data-article_id="{{Article_target.id}}" cols="60" rows="3"></textarea>
+                      <textarea class="form-control textarea_comment" name="comment" id="textarea_comment" data-article_id="{{Article_target.id}}" cols="60" rows="3"></textarea>
                     </div>
                     <div >
                         <button type="submit" id="comment-btn" class="btn btn-outline-success">Comment</button>
@@ -76,13 +76,25 @@
                     <div  id="user-comment" class="">
                         <p class="font-weight-bold">{{comment.user}}</p>
                         <hr class="hr-comment">
-                        <div id="comment-content">
-                            <p>{{comment.comment|linebreaks}}</p> 
-                            <hr class="hr-comment">
-                            <div>
-                                <span id="comment-date">{{comment.Date}}</span>
+                    </div>
+                    <div id="comment-content-{{comment.id}}">
+                        <p >{{comment.comment|linebreaks}}</p> 
+                    </div>
+                    <div id="edit-comment-content-{{comment.id}}">
+                        <p class="edit-comment-content"> </p>
+                    </div>
+                    <div>
+                        <form>
+                            <div class="form-group">
+                                <textarea id="comment-textarea-{{comment.id}}" class="textarea_comment_edit form-control">{{comment.comment}}</textarea>
                             </div>
-                        </div>
+                        </form>
+                    </div> 
+                            
+                    <hr class="hr-comment">  
+                    <div>
+                        <span id="comment-date">{{comment.Date}}</span>
+                        <button id="edit-comment" class="btn btn-outline-dark" data-comment-id="{{comment.id}}">Edit</button>
                     </div>
                 </div>
             </div>
@@ -93,5 +105,5 @@
 
 
 {% block script %}
-   
+   <script src="{% static 'MedicPlace/edit_comment.js' %}"></script>
 {% endblock %}

@@ -190,3 +190,17 @@ def Edit_Article_view(request,id):
     else:
         context={"title":Get_Article.title,"content":Get_Article.content,"id":id,"is_medic":is_medic,"is_owner":is_owner}
         return render(request,"MedicPlace/Edit_Medic_article.html",context)
+
+
+@csrf_exempt
+def Edit_Article_comment_view(request,id):
+    if request.method=="POST":
+        comment_id=request.POST.get("id")
+        comment_content=request.POST.get("content")
+        comment_target=Article_comment.objects.get(id=id)
+        comment_target.comment=comment_content
+        comment_target.save()
+        comment_content2=""
+        for line in comment_content.splitlines():
+            comment_content2=comment_content2 + "\n" + line + "\n"
+        return JsonResponse({'status':201,'content':comment_content2})
