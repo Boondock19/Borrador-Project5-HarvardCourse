@@ -45,3 +45,7 @@ hr.hr-comment:after {
 .edit-comment-content {
     display: none;
 }
+
+.form-field {
+    border: 3px solid #cccccc;
+}

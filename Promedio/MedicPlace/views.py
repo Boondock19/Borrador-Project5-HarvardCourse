@@ -164,7 +164,8 @@ def Article_view(request,id):
         title=Get_Article.title
         content=Get_Article.content
         Dr_Article=Get_Article.medic.Last_Name
-        context={"title":title,"content":content,"Medic":Dr_Article,"Article_target":Get_Article,"is_medic":is_medic,"is_owner":is_owner,"comments":Comments_article}
+        Dr_Article_id=Get_Article.medic.user.id
+        context={"title":title,"content":content,"Medic":Dr_Article,"Medic_id":Dr_Article_id,"Article_target":Get_Article,"is_medic":is_medic,"is_owner":is_owner,"comments":Comments_article}
         return render(request,"MedicPlace/Medic_article.html",context)
 
 def Edit_Article_view(request,id):
