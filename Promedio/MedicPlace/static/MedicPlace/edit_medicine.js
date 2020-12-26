@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded",function(){
     p_type=document.querySelector(`#p-type`);
     p_active_ingredient=document.querySelector(`#p-active_ingredient`);
     p_summary=document.querySelector(`#p-summary`);
+    p_summary_edited=document.querySelector("#p-summary-edited")
     // Eventlistener edit btn
     edit_btn.addEventListener("click",function(){
         if (edit_btn.textContent=="Edit Entry"){
@@ -37,7 +38,7 @@ document.addEventListener("DOMContentLoaded",function(){
             // showing p tags
             p_type.style.display="block";
             p_active_ingredient.style.display="block";
-            p_summary.style.display="block";
+            p_summary_edited.style.display="block";
             edit_btn.textContent="Edit Entry";
         }
     })
@@ -56,6 +57,6 @@ function edit_entry(id,type_medicine,active_ingredient,summary) {
     .then((res) =>{
         p_type.textContent=res.type_of_medicine;
         p_active_ingredient.textContent=res.active_ingredient;
-        p_summary.textContent=res.summary;
+        p_summary_edited.textContent=res.summary;
     })
 }

@@ -6,6 +6,9 @@
     display: none;
 }
 
+#p_summary_edited {
+    display:none;
+}
 .comment {
     margin-top: 10px;
     border: solid 2px;
