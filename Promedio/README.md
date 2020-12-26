@@ -31,3 +31,31 @@ Then we have **data_sheet.html** this page works like a profile it shows the use
 **New_Medicine.html**  shows a form in which the doctors can write down the name of the medicine,type of medicine,summary and principal ingredient, then the user is redirected to the Medicine.html entry.
 
 **Medicine.html** is the last page of the website and it displays the contents of a medicine entry, which is its name,type of medicine, the doctor who created it and summary. As in articles the doctor who created it the medicine can edit it via javascript with a post request to the database.
+
+## Models of the Website!:
+
+For this page i created seven models:
+
+#### User:
+
+I created the Medic and Normal_user model so i could differentiate the users type. For  the Medic model i used a foreignkey to the User model, asked a firstname,lastname,age,clinic, a rate which starts in 0, a summatory of rates and how many rates have been used, both start at 0 as well. For this model i created a function to calculate the promedy of the rate for a doctor.
+
+### Normal_user:
+
+I created the Medic and Normal_user model so i could differentiate the users type. For  the Normal_user model i used a foreignkey to the User model, asked a firstname,lastname (both charfields) and age (intergerfield).
+
+### Medic_Article:
+
+For the Medic_Article model i used two foreignkeys one to User and the other to Medic, so i could tell which user/doctor created it, besides this i asked form a title(charfield) and content(textfield, so we can represent it with breaklines) of the article.
+
+### Article_comment:
+
+This models asks for four fields, two are foreingkeys one tho User and the other one to Medic_Article, the other to fields are one for comment (textfield) and the other for Date(datetimefield)
+
+### type_of_medicine:
+
+Type of medicine just has one field and its a charfield, all the types are created via admin-site.
+
+### medicine:
+
+Finally for medicine model i used 5 fields, two for foreingkeys which are: One to Medic and the other to type_of_medicine. For the other three fields i used two charfields ( title and pricipal ingredient) and the other one for the summary its a textfield.
