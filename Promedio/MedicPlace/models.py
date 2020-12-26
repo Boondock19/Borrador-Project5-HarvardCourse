@@ -50,3 +50,20 @@ class Article_comment(models.Model):
 
     def __str__(self):
         return f"This is from {self.user} and article {self.article}"
+
+class type_of_medicine(models.Model):
+    Type=models.CharField(max_length=30)
+
+    def __str__(self):
+        return f"This is type {self.Type}"
+
+class medicine(models.Model):
+    Name=models.CharField(max_length=30)
+    Active_ingredient=models.CharField(max_length=30)
+    type_of_medicine=models.ForeignKey(type_of_medicine,on_delete=models.CASCADE)
+    medic=models.ForeignKey(Medic,on_delete=models.CASCADE)
+    Summary=models.TextField(max_length=1000)
+
+    def __str__(self):
+        return f"Medicine {self.Name} written by {self.medic}"
+

@@ -13,4 +13,5 @@ urlpatterns=[
     path("Article/<int:id>",views.Article_view,name="Article"),
     path("Edit_Article/<int:id>",views.Edit_Article_view,name="Edit_Article"),
     path("Article_edit_comment/<int:id>",views.Edit_Article_comment_view,name="Edit_Article_comment"),
+    path("Medicine_type/<int:id>",views.Medicine_type_view,name="Medicine_type"),
 ]

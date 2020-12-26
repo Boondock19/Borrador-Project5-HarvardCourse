@@ -1,0 +1,22 @@
+{% extends 'MedicPlace/layout.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>{{Medicine_target.Type}}</h1>
+            {% if message %}
+            <h3>{{message}}</h3>
+            {% endif %}
+            <ul>
+                {% for e in  List_of_Medicine %}
+                    <li><a href=""></a> <span class="font-weight-bold">Name:  </span> {{e.Name}} , <span class="font-weight-bold"> Active Ingredient:  </span>{{e.Active_ingredient}} </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

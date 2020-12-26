@@ -12,12 +12,13 @@ from django.http import JsonResponse
 def index(request):
     Medics=Medic.objects.all()
     Articles=Medic_Article.objects.all()
+    Medicines=type_of_medicine.objects.all()
     try:
         Medic.objects.get(user__id=request.user.id)
         is_medic=True
     except:
         is_medic=False
-    context={"Medics":Medics,"is_medic":is_medic,"Articles":Articles}
+    context={"Medics":Medics,"is_medic":is_medic,"Articles":Articles,"Medicines":Medicines}
     return render(request,"MedicPlace/index.html",context)
 
 def login_view(request):
@@ -205,3 +206,13 @@ def Edit_Article_comment_view(request,id):
         for line in comment_content.splitlines():
             comment_content2=comment_content2 + "\n" + line + "\n"
         return JsonResponse({'status':201,'content':comment_content2})
+
+def Medicine_type_view(request,id):
+    Medicine_target=type_of_medicine.objects.get(id=id)
+    List_of_Medicine=medicine.objects.filter(type_of_medicine__id=id)
+    if len(List_of_Medicine)<1:
+        message="There is no medicine for this category yet!"
+    else:
+        message=""
+    context={"Medicine_target":Medicine_target,"List_of_Medicine":List_of_Medicine,"message":message}
+    return render(request,"MedicPlace/Medicine_type.html",context)
