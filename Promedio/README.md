@@ -38,6 +38,10 @@ For this page i created seven models:
 
 #### User:
 
+Which uses the AbstractUser model, and its very convenient for users models. 
+
+#### Medic:
+
 I created the Medic and Normal_user model so i could differentiate the users type. For  the Medic model i used a foreignkey to the User model, asked a firstname,lastname,age,clinic, a rate which starts in 0, a summatory of rates and how many rates have been used, both start at 0 as well. For this model i created a function to calculate the promedy of the rate for a doctor.
 
 ### Normal_user:
