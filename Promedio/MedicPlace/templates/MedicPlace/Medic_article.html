@@ -44,8 +44,15 @@
         <div class="row justify-content-end">
             
             {% if is_owner is True %}
-            <div>
+            <div class="col">
                 <a href="{% url 'Edit_Article' Article_target.id %}"><button type="button" id="edit_article" data-article_id="{{Article_target.id}}" class="btn btn-outline-warning" >Edit Article</button></a>  
+            </div>
+            <div>    
+                <form method="POST" action="{%  url 'Article' Article_target.id %}">
+                    {% csrf_token %}
+                    <input type="text" name="Delete" value="Delete" hidden>
+                    <button type="submit" id="delete_article" data-article_id="{{Article_target.id}}" class="btn btn-outline-danger" >Delete Article</button>
+                </form>
             </div>
             {% endif %}
         </div>

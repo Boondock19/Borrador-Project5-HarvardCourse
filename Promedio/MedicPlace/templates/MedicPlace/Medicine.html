@@ -45,7 +45,7 @@
         </div>
         <div class="row justify-content-end">
             <div class="col justify-content-end">
-                <button data-Medicine-id="{{Medicine_id}}" id="edit-btn" class="btn btn-outline-warning">Edit Entry</button>
+            {% if request.user == Medicine_medic_user %}    <button data-Medicine-id="{{Medicine_id}}" id="edit-btn" class="btn btn-outline-warning">Edit Entry</button> {% endif  %}
             </div>
         </div>
     </div>

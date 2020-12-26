@@ -13,10 +13,6 @@
           
             <div>
               <ul class="navbar-nav mr-auto">
-                
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'index' %}">Dictionary</a>
-                </li>
                 {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'Data_Sheet' user.id %}">{{user.username}}</a>

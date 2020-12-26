@@ -154,13 +154,18 @@ def Article_view(request,id):
     else:
         is_owner=False
     if request.method=="POST":
-        comment_content=request.POST["comment"]
-        New_comment=Article_comment()
-        New_comment.user=request.user
-        New_comment.article=Get_Article
-        New_comment.comment=comment_content
-        New_comment.save()
-        return HttpResponseRedirect(reverse("Article",kwargs={"id":id}))
+        try:
+            is_Delete=request.POST["Delete"]
+            Get_Article.delete()
+            return HttpResponseRedirect(reverse("index"))
+        except:
+            comment_content=request.POST["comment"]
+            New_comment=Article_comment()
+            New_comment.user=request.user
+            New_comment.article=Get_Article
+            New_comment.comment=comment_content
+            New_comment.save()
+            return HttpResponseRedirect(reverse("Article",kwargs={"id":id}))
     else:
         title=Get_Article.title
         content=Get_Article.content
@@ -226,9 +231,10 @@ def Medicine_view(request,id):
     Medicine_Active_ingredient=Medicine_page.Active_ingredient
     Medicine_medic=Medicine_page.medic.Last_Name
     Medicine_id=Medicine_page.id
+    Medicine_medic_user=Medicine_page.medic.user
     context={"name":Medicine_name,"type":Medicine_type,"summary":Medicine_summary,
     "Active_ingredient":Medicine_Active_ingredient,"medic":Medicine_medic,
-    "Medicine_id":Medicine_id,"Medicines":Medicines}
+    "Medicine_id":Medicine_id,"Medicines":Medicines,"Medicine_medic_user":Medicine_medic_user}
     return render(request,"MedicPlace/Medicine.html",context)
 
 def New_Medicine_view(request):
