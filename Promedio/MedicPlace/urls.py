@@ -15,4 +15,5 @@ urlpatterns=[
     path("Article_edit_comment/<int:id>",views.Edit_Article_comment_view,name="Edit_Article_comment"),
     path("Medicine_type/<int:id>",views.Medicine_type_view,name="Medicine_type"),
     path("Medicine/<int:id>",views.Medicine_view,name="Medicine"),
+    path("New_Medicine",views.New_Medicine_view,name="New_Medicine"),
 ]

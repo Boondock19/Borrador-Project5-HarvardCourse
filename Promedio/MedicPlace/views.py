@@ -220,9 +220,36 @@ def Medicine_type_view(request,id):
 def Medicine_view(request,id):
     Medicine_page=medicine.objects.get(id=id)
     Medicine_name=Medicine_page.Name
-    Medicine_type=Medicine_page.type_of_medicine
+    Medicine_type=Medicine_page.type_of_medicine.Type
     Medicine_summary=Medicine_page.Summary
     Medicine_Active_ingredient=Medicine_page.Active_ingredient
-    Medicine_medic=Medicine_page.medic
+    Medicine_medic=Medicine_page.medic.Last_Name
     context={"name":Medicine_name,"type":Medicine_type,"summary":Medicine_summary,"Active_ingredient":Medicine_Active_ingredient,"medic":Medicine_medic}
     return render(request,"MedicPlace/Medicine.html",context)
+
+def New_Medicine_view(request):
+    Medicines=type_of_medicine.objects.all()
+    Medics=Medic.objects.all()
+    try:
+        Medic.objects.get(user__id=request.user.id)
+        is_medic=True
+    except:
+        is_medic=False
+    if request.method=="POST":
+        Medicine_name=request.POST["name"]
+        Medicine_type=type_of_medicine.objects.get(id=request.POST["type"])
+        
+        Medicine_summary=request.POST["summary"]
+        Medicine_Active_ingredient=request.POST["active_ingredient"]
+        Medicine_medic=Medic.objects.get(user__id=request.user.id)
+        New_Medicine=medicine()
+        New_Medicine.Name=Medicine_name
+        New_Medicine.type_of_medicine=Medicine_type
+        New_Medicine.Summary=Medicine_summary
+        New_Medicine.Active_ingredient=Medicine_Active_ingredient
+        New_Medicine.medic=Medicine_medic
+        New_Medicine.save()
+        return HttpResponseRedirect(reverse("Medicine",kwargs={'id':New_Medicine.id}))
+    else:
+        context={"Medicines":Medicines,"is_medic":is_medic}
+        return render(request,"MedicPlace/New_Medicine.html",context)
