@@ -216,3 +216,13 @@ def Medicine_type_view(request,id):
         message=""
     context={"Medicine_target":Medicine_target,"List_of_Medicine":List_of_Medicine,"message":message}
     return render(request,"MedicPlace/Medicine_type.html",context)
+
+def Medicine_view(request,id):
+    Medicine_page=medicine.objects.get(id=id)
+    Medicine_name=Medicine_page.Name
+    Medicine_type=Medicine_page.type_of_medicine
+    Medicine_summary=Medicine_page.Summary
+    Medicine_Active_ingredient=Medicine_page.Active_ingredient
+    Medicine_medic=Medicine_page.medic
+    context={"name":Medicine_name,"type":Medicine_type,"summary":Medicine_summary,"Active_ingredient":Medicine_Active_ingredient,"medic":Medicine_medic}
+    return render(request,"MedicPlace/Medicine.html",context)

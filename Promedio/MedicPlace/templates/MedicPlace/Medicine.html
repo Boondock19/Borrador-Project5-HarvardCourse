@@ -1,0 +1,23 @@
+{% extends 'MedicPlace/layout.html' %}
+
+{% load static %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>{{name}}</h1>
+                <h4>{{type}}</h4>
+                <div>
+                   <span> </span> <p>{{Active_ingredient}}</p>
+                </div>
+                <div>
+                    <span>Written by: </span> <p>{{medic}}</p>
+                </div>
+                <div>
+                    <p>{{summary}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
