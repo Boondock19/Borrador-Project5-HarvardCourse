@@ -49,3 +49,12 @@ hr.hr-comment:after {
 .form-field {
     border: 3px solid #cccccc;
 }
+
+.select-medicine {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.edit-medicine {
+    display: none; 
+}

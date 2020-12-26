@@ -218,13 +218,17 @@ def Medicine_type_view(request,id):
     return render(request,"MedicPlace/Medicine_type.html",context)
 
 def Medicine_view(request,id):
+    Medicines=type_of_medicine.objects.all()
     Medicine_page=medicine.objects.get(id=id)
     Medicine_name=Medicine_page.Name
     Medicine_type=Medicine_page.type_of_medicine.Type
     Medicine_summary=Medicine_page.Summary
     Medicine_Active_ingredient=Medicine_page.Active_ingredient
     Medicine_medic=Medicine_page.medic.Last_Name
-    context={"name":Medicine_name,"type":Medicine_type,"summary":Medicine_summary,"Active_ingredient":Medicine_Active_ingredient,"medic":Medicine_medic}
+    Medicine_id=Medicine_page.id
+    context={"name":Medicine_name,"type":Medicine_type,"summary":Medicine_summary,
+    "Active_ingredient":Medicine_Active_ingredient,"medic":Medicine_medic,
+    "Medicine_id":Medicine_id,"Medicines":Medicines}
     return render(request,"MedicPlace/Medicine.html",context)
 
 def New_Medicine_view(request):
@@ -253,3 +257,17 @@ def New_Medicine_view(request):
     else:
         context={"Medicines":Medicines,"is_medic":is_medic}
         return render(request,"MedicPlace/New_Medicine.html",context)
+
+@csrf_exempt
+def Edit_medicine_view(request,id):
+    if request.method=="POST":
+        Medicine_entry=medicine.objects.get(id=id)
+        type_medicine=type_of_medicine.objects.get(id=request.POST.get("type_medicine"))
+        active_ingredient=request.POST.get("active_ingredient")
+        summary=request.POST.get("summary")
+        Medicine_entry.type_of_medicine=type_medicine
+        Medicine_entry.Active_ingredient=active_ingredient
+        Medicine_entry.Summary=summary
+        Medicine_entry.save()
+        return JsonResponse({'status':201,'type_of_medicine':type_medicine.Type,
+        'active_ingredient':active_ingredient,'summary':summary})

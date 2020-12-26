@@ -16,4 +16,5 @@ urlpatterns=[
     path("Medicine_type/<int:id>",views.Medicine_type_view,name="Medicine_type"),
     path("Medicine/<int:id>",views.Medicine_view,name="Medicine"),
     path("New_Medicine",views.New_Medicine_view,name="New_Medicine"),
+    path("Edit_Medicine/<int:id>",views.Edit_medicine_view,name="Edit_Medicine"),
 ]
