@@ -124,6 +124,12 @@ def Rate_Dr(request,id):
         return JsonResponse({'status':201,"rate":rate,"num_of_rates":num_of_rates})
 
 def New_Article_view(request):
+    Medics=Medic.objects.all()
+    try:
+        Medic.objects.get(user__id=request.user.id)
+        is_medic=True
+    except:
+        is_medic=False
     if request.method=="POST":
         user_id=request.user.id
         medic=Medic.objects.get(user__id=user_id)
@@ -137,7 +143,7 @@ def New_Article_view(request):
         Article.save()
         return HttpResponseRedirect(reverse("index"))
     else:
-        return render(request,"MedicPlace/New_Medic_article.html")
+        return render(request,"MedicPlace/New_Medic_article.html",{"is_medic":is_medic})
 
 
 def Article_view(request,id):
@@ -213,16 +219,28 @@ def Edit_Article_comment_view(request,id):
         return JsonResponse({'status':201,'content':comment_content2})
 
 def Medicine_type_view(request,id):
+    Medics=Medic.objects.all()
+    try:
+        Medic.objects.get(user__id=request.user.id)
+        is_medic=True
+    except:
+        is_medic=False
     Medicine_target=type_of_medicine.objects.get(id=id)
     List_of_Medicine=medicine.objects.filter(type_of_medicine__id=id)
     if len(List_of_Medicine)<1:
         message="There is no medicine for this category yet!"
     else:
         message=""
-    context={"Medicine_target":Medicine_target,"List_of_Medicine":List_of_Medicine,"message":message}
+    context={"Medicine_target":Medicine_target,"List_of_Medicine":List_of_Medicine,"message":message,"is_medic":is_medic}
     return render(request,"MedicPlace/Medicine_type.html",context)
 
 def Medicine_view(request,id):
+    Medics=Medic.objects.all()
+    try:
+        Medic.objects.get(user__id=request.user.id)
+        is_medic=True
+    except:
+        is_medic=False
     Medicines=type_of_medicine.objects.all()
     Medicine_page=medicine.objects.get(id=id)
     Medicine_name=Medicine_page.Name
@@ -234,7 +252,8 @@ def Medicine_view(request,id):
     Medicine_medic_user=Medicine_page.medic.user
     context={"name":Medicine_name,"type":Medicine_type,"summary":Medicine_summary,
     "Active_ingredient":Medicine_Active_ingredient,"medic":Medicine_medic,
-    "Medicine_id":Medicine_id,"Medicines":Medicines,"Medicine_medic_user":Medicine_medic_user}
+    "Medicine_id":Medicine_id,"Medicines":Medicines,"Medicine_medic_user":Medicine_medic_user,
+    "is_medic":is_medic}
     return render(request,"MedicPlace/Medicine.html",context)
 
 def New_Medicine_view(request):
@@ -268,12 +287,14 @@ def New_Medicine_view(request):
 def Edit_medicine_view(request,id):
     if request.method=="POST":
         Medicine_entry=medicine.objects.get(id=id)
+        name=request.POST.get("name")
         type_medicine=type_of_medicine.objects.get(id=request.POST.get("type_medicine"))
         active_ingredient=request.POST.get("active_ingredient")
         summary=request.POST.get("summary")
+        Medicine_entry.Name=name
         Medicine_entry.type_of_medicine=type_medicine
         Medicine_entry.Active_ingredient=active_ingredient
         Medicine_entry.Summary=summary
         Medicine_entry.save()
         return JsonResponse({'status':201,'type_of_medicine':type_medicine.Type,
-        'active_ingredient':active_ingredient,'summary':summary})
+        'active_ingredient':active_ingredient,'summary':summary,"name":name})
