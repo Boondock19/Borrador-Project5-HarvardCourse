@@ -108,4 +108,18 @@ This view can only be seen by medic users and via a button in an article created
 
 Edit article is a view made for fetch requests, it needs the id of the comment for the motive of getting the comment instance to save the changes, the id is from a data-set from the html and via javascript the view then processes the id and content parameters and saves the changes, finally it creates lines in case the are "enter spaces" between the comment content, and sends back this content to the page via jsonresponse. This view is csrf exempt
 
-#### New_Article_view:
+#### Medicine_type_view:
+
+The medicine type view querys the list of medicines for an type of medicine, via id, if the list is < 1 then it displays a message else loads the list of medicines. 
+
+#### Medicine_view:
+
+The medicine view loads the entry of a medicine model instance, it also gets the user of the medic who wrote the entry, because the template needs it to check if the request.user is equall to the user of the medic who wrote the entry, then if they are the same it displays an edit button, otherwise it wont. It also loads all the medicine types because the edit function of the medicines is done via javacript in the same page and it needs to display the list of types.
+
+#### New_Medicine_view:
+
+New medicine view loads a form for the medic user to do a post request, upon a post requests it gets all the parameters and creates a new Medicine object instance, then saves it, and loads the medicine view page for that object instance.
+
+#### Edit_medicine_view:
+
+This view is used in the medicine view, is only used via javacripts in a fetch request, and it needs the id of the medicine entry, which it gets from the data-set in the html from the javascript, it then gets the entry with the id, and saves in the data base the changes done by the user, returns back a jsonreponses for the front-end of the page.
