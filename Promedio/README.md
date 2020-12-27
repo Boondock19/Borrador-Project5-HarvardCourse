@@ -123,3 +123,24 @@ New medicine view loads a form for the medic user to do a post request, upon a p
 #### Edit_medicine_view:
 
 This view is used in the medicine view, is only used via javacripts in a fetch request, and it needs the id of the medicine entry, which it gets from the data-set in the html from the javascript, it then gets the entry with the id, and saves in the data base the changes done by the user, returns back a jsonreponses for the front-end of the page.
+
+
+## javascripts archives of the Website!:
+
+There are 4 javascript archives in the page:
+
+#### Register.js:
+
+this script loads only on the register page, and it for the only purpose of showing or hidding an input for the clinic parameter, and is based in two eventlisteners one for a "yes" option and another for "no". The first changes the style to block while the other one changes the style to none of several divs.
+
+#### rate.js:
+
+rate.js only works on the datasheet of a medic user, and is used to make a post request to the database, to change the rate parameter of a medic object.It selects all the rating buttons and adds an eventlitener to them, this event gets the data-value of the button and sends it to the database via a fetch with the id of the medic which is stored in get_dr via a data-btn_id. It then changes the textContend of the spans elements and disables the buttons to avoid further rating.
+
+#### edit_comment.js:
+
+This script is used to edit the comments in the articles, it gets the id of the comment via the data-comment-id from the edit button, it then selects, two p tags ( one is displaying the actual content of the comment, the other is for the new content) and one textarea (used for the post request). It then adds an eventlistener and depending on the textcontent of the button it shows or hides the inputs and p tags, finale it ueses the edit_comment fuction to send a post request to the database and displays the response in one of the p tags.
+
+#### edit_medicine.js:
+
+This script is pretty similar to the edit_comment.js the only difference is the ammount of selectors, but the idea is the same, this script is used to edit a medicine entry with an edit button. With this button the script gets the id of the medicine entry, it then selects all the different p tags and input tags (select and textarea as well), then with an eventlistener and checking the textcontent of the button the script hides and shows the edit fields and the content fields, the last part of the script uses the edit_entry funtion to send a post request via a fetch to the database to change the content of the page and the entry, and finally sets the textcontent of the page to the new content. 
