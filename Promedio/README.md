@@ -44,22 +44,68 @@ Which uses the AbstractUser model, and its very convenient for users models.
 
 I created the Medic and Normal_user model so i could differentiate the users type. For  the Medic model i used a foreignkey to the User model, asked a firstname,lastname,age,clinic, a rate which starts in 0, a summatory of rates and how many rates have been used, both start at 0 as well. For this model i created a function to calculate the promedy of the rate for a doctor.
 
-### Normal_user:
+#### Normal_user:
 
 I created the Medic and Normal_user model so i could differentiate the users type. For  the Normal_user model i used a foreignkey to the User model, asked a firstname,lastname (both charfields) and age (intergerfield).
 
-### Medic_Article:
+#### Medic_Article:
 
 For the Medic_Article model i used two foreignkeys one to User and the other to Medic, so i could tell which user/doctor created it, besides this i asked form a title(charfield) and content(textfield, so we can represent it with breaklines) of the article.
 
-### Article_comment:
+#### Article_comment:
 
 This models asks for four fields, two are foreingkeys one tho User and the other one to Medic_Article, the other to fields are one for comment (textfield) and the other for Date(datetimefield)
 
-### type_of_medicine:
+#### type_of_medicine:
 
 Type of medicine just has one field and its a charfield, all the types are created via admin-site.
 
-### medicine:
+#### medicine:
 
 Finally for medicine model i used 5 fields, two for foreingkeys which are: One to Medic and the other to type_of_medicine. For the other three fields i used two charfields ( title and pricipal ingredient) and the other one for the summary its a textfield.
+
+
+## Views of the Website!:
+
+For this page these are the views:
+#### index:
+
+In this view the server querys all the medics,articles and type of medicines objects, with the purpose of displaying lists. This view also verifies if the request.user is a medic, the page needs to check this otherwise it wont show all the links in the navbar. 
+
+#### login_view:
+
+The login_view is the standard login view, it loads a form and if it gets a post request, the database checks if the user exists, if it does the user is loged in and is taken to de index page.
+
+#### register_view:
+
+For this page the register_view its a litle more complex, it shows a form that ask for username,email,password,confirmation of the password,firstname,lastname,age, an is_dr parameter that is used for differentiate the creation of a Medic user or a Normal_User user. If is_dr is "yes" then it will ask for the clinic parameter as well and create a new medic user, if is_dr is "no" it will create  Normal_User user and if everything goes well the user is loged in and redirected to index page.This view has several checks about the filling of the inputs an displays a message in case an error ocurrs.
+
+#### logout_view:
+
+This view simply logs out the user.
+
+#### data_sheet:
+
+This view ask for the id of the user owner of the datasheet or profile, the first thing the view does is filter out if the user is a medic or a Normal_User with the id, it then tries to get a medic object with the id, if it does exist then is_medic is true else is_medic is false, with this variable we show the content of the page.Then if the filter works, we should have an array with one element so we check the len of the arrays and the one that is > 0 is the one will load the variable for the view,we pass down 2 variables data_sheet_user which gets the object of the resulting model,Page_type that the page uses to check which html load.
+
+#### Rate_Dr:
+
+This view is used inside the datasheet page and it can only be used in a medic page, and by user that are diferent from the owner of the profile ( this is done by checking if the request.user is the same user.id than the medic object).This view is for submmiting rating for the doctor is done via javascript and the database sents a jsonresponse back, it gets the value from the buttons on the page and Medic promedio method and saves the Medic object instance. This view is csrf exempt and gets the id from the data-set of html elements via javascript
+
+#### New_Article_view:
+
+This view loads a form for the doctor users, and in request.post gets the user.id to get the medic instanceand then create a new Medic_Article model and saving it, then the user is redirected to the index page.
+
+#### Article_view:
+
+This view asks for the id of the article to get its instance and get the comments for this especific article, it then checks if the user is medic for the links in navbar,then it also checks if the request.user is the owner of the article and sets a boolean value for the varaible is_owner which is used to show the buttons for edit and delete the article. This view has two possible post requests, one is for deleting the article and is filter by an try and except check(checks if a hidden input has been recieved) if the try works then it deletes the article and sends the user to the index page, otherwise it goes to the other post that is for the comment section of the page, this post only receives a comment parameter and with that it creates a comment instance which will be filled with the user (request.user), the article.id and the comment parameter, saves the comment instance and loads again the article page.
+
+#### Edit_Article_view:
+
+This view can only be seen by medic users and via a button in an article created by then  (done by the is_owner variable of the article_view), this view asks for the id of the article and shows the same form that is used to create a new article but it already has loaded the content of the article in each input, such that the user only has to make some changes and then save those changes.If a post request is made the view simply gets the parameters and saves them in the article instance and redirects the user to the articles page.
+
+#### Edit_Article_comment_view:
+
+Edit article is a view made for fetch requests, it needs the id of the comment for the motive of getting the comment instance to save the changes, the id is from a data-set from the html and via javascript the view then processes the id and content parameters and saves the changes, finally it creates lines in case the are "enter spaces" between the comment content, and sends back this content to the page via jsonresponse. This view is csrf exempt
+
+#### New_Article_view:
